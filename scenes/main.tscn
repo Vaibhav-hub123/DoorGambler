@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cq521dy65wn1r"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://csuu0xqwrrtbb" path="res://main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://bsulig1q7tub6" path="res://assets/metro_station_floor.png" id="3_floor_texture"]
 [ext_resource type="Texture2D" uid="uid://bwepvg0ykinl5" path="res://assets/metro_car_floor.png" id="4_car_floor_texture"]
+[ext_resource type="PackedScene" uid="uid://bi5igl28o6vb7" path="res://assets/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri_fbx/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri.fbx" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://cbggxfvol8bej" path="res://assets/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture.fbx" id="5_tefeu"]
 
 [sub_resource type="Environment" id="Environment_main"]
 background_mode = 1
@@ -91,10 +93,16 @@ shadow_enabled = true
 omni_range = 8.0
 
 [node name="DoorLeft" type="MeshInstance3D" parent="Train" unique_id=1389175952]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.031838473)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.06)
+
+[node name="Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri" parent="Train/DoorLeft" unique_id=202356035 instance=ExtResource("4_tbgi4")]
+transform = Transform3D(1.2155, 0, 0, 0, 1.05114, 0, 0, 0, 0.7365, 0, 0, 0)
 
 [node name="DoorRight" type="MeshInstance3D" parent="Train" unique_id=1807624690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0.06)
+
+[node name="Meshy_AI_MetroRightDoorLowPoly_20261114_texture" parent="Train/DoorRight" unique_id=448501326 instance=ExtResource("5_tefeu")]
+transform = Transform3D(2.5924, 0, 0, 0, 2.10267, 0, 0, 0, 1.06044, 0, 0, 0)
 
 [node name="PlatformSpot" type="Marker3D" parent="." unique_id=165085940]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 4)
