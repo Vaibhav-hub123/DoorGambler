@@ -202,6 +202,12 @@ func end_round() -> void:
 func start_round() -> void:
 	crossings = 0
 	if round_number == 2:
+		# Restore the previous in-car starting view for Round 2.
+		camera.global_transform = inside_spot.global_transform
+		camera.h_offset = 0.0
+		camera.v_offset = 0.0
+		shake_strength = 0.0
+		location = Location.INSIDE
 		begin_glitches()
 	else:
 		phase = Phase.PLAYING   # placeholder until round 3 has its own content
