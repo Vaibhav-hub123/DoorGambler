@@ -16,6 +16,7 @@ enum Location { PLATFORM, INSIDE }
 
 @export_group("Crossing")
 @export var walk_time := 1.2
+@export var station_departure_offset := 40.0
 @export var doorway_half_depth := 0.3
 @export var passable_left_x := -0.75
 @export var doorway_half_width := 1.0
@@ -23,6 +24,7 @@ enum Location { PLATFORM, INSIDE }
 
 @onready var camera: Camera3D = $Camera3D
 @onready var train: Node3D = $Train
+@onready var station: Node3D = $Station
 @onready var door_left: MeshInstance3D = $Train/DoorLeft
 @onready var door_right: MeshInstance3D = $Train/DoorRight
 @onready var platform_spot: Marker3D = $PlatformSpot
@@ -31,6 +33,7 @@ enum Location { PLATFORM, INSIDE }
 
 var left_closed_x: float
 var right_closed_x: float
+var station_home_z: float
 var door_state: Door = Door.CLOSED
 var door_timer: float
 var location: Location = Location.PLATFORM
@@ -44,6 +47,7 @@ func _ready() -> void:
 	# The closed door positions and starting camera pose are authored in the scene.
 	left_closed_x = door_left.position.x
 	right_closed_x = door_right.position.x
+	station_home_z = station.position.z
 	door_timer = initial_wait
 	update_label("Wait for the doors...")
 
@@ -136,6 +140,8 @@ func start_walk(spot: Marker3D, destination: Location) -> void:
 	walk_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	walk_tween.tween_property(camera, "global_position", spot.global_position, walk_time)
 	walk_tween.tween_property(camera, "global_rotation", spot.global_rotation, walk_time)
+	var station_target_z := station_home_z + station_departure_offset if destination == Location.INSIDE else station_home_z
+	walk_tween.tween_property(station, "position:z", station_target_z, walk_time)
 	walk_tween.finished.connect(_on_walk_finished.bind(destination))
 
 

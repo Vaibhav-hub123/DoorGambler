@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cq521dy65wn1r"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://csuu0xqwrrtbb" path="res://main.gd" id="1_o5qli"]
 
 [sub_resource type="Environment" id="Environment_main"]
 background_mode = 1
-background_color = Color(0.055, 0.075, 0.11, 1)
+background_color = Color(0.005, 0.005, 0.008, 1)
 ambient_light_source = 3
 ambient_light_color = Color(0.78, 0.84, 1, 1)
 ambient_light_energy = 0.6
@@ -22,7 +22,17 @@ size = Vector3(2, 1, 0.2)
 size = Vector3(10, 3, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_door"]
-size = Vector3(1, 2, 0.1)
+size = Vector3(1, 2, 0.415)
+
+[sub_resource type="BoxMesh" id="BoxMesh_station_pillar"]
+size = Vector3(0.4, 3, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_station_back"]
+size = Vector3(40, 4, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="Material_glass_door"]
+transparency = 1
+albedo_color = Color(0.65, 0.82, 1, 0.3)
 
 [node name="Main" type="Node3D" unique_id=1411005492]
 script = ExtResource("1_o5qli")
@@ -37,6 +47,28 @@ environment = SubResource("Environment_main")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=551268047]
 mesh = SubResource("PlaneMesh_floor")
+
+[node name="Station" type="Node3D" parent="." unique_id=1834217221]
+
+[node name="PillarLeftOuter" type="MeshInstance3D" parent="Station"]
+position = Vector3(-6, 1.5, 5)
+mesh = SubResource("BoxMesh_station_pillar")
+
+[node name="PillarLeftInner" type="MeshInstance3D" parent="Station"]
+position = Vector3(-2, 1.5, 5)
+mesh = SubResource("BoxMesh_station_pillar")
+
+[node name="PillarRightInner" type="MeshInstance3D" parent="Station"]
+position = Vector3(2, 1.5, 5)
+mesh = SubResource("BoxMesh_station_pillar")
+
+[node name="PillarRightOuter" type="MeshInstance3D" parent="Station"]
+position = Vector3(6, 1.5, 5)
+mesh = SubResource("BoxMesh_station_pillar")
+
+[node name="BackWall" type="MeshInstance3D" parent="Station"]
+position = Vector3(0, 2, 9)
+mesh = SubResource("BoxMesh_station_back")
 
 [node name="Train" type="Node3D" parent="." unique_id=1729372123]
 
@@ -56,13 +88,22 @@ mesh = SubResource("BoxMesh_top")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
 mesh = SubResource("BoxMesh_back")
 
+[node name="InteriorLight" type="OmniLight3D" parent="Train"]
+position = Vector3(0, 2.4, -1.4)
+light_color = Color(1, 0.83, 0.62, 1)
+light_energy = 2.0
+omni_range = 8.0
+shadow_enabled = true
+
 [node name="DoorLeft" type="MeshInstance3D" parent="Train" unique_id=1389175952]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.031838473)
 mesh = SubResource("BoxMesh_door")
+surface_material_override/0 = SubResource("Material_glass_door")
 
 [node name="DoorRight" type="MeshInstance3D" parent="Train" unique_id=1807624690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0.06)
 mesh = SubResource("BoxMesh_door")
+surface_material_override/0 = SubResource("Material_glass_door")
 
 [node name="PlatformSpot" type="Marker3D" parent="." unique_id=165085940]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 4)
@@ -77,7 +118,7 @@ current = true
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1234567890]
 
 [node name="StatusLabel" type="Label" parent="CanvasLayer" unique_id=1234567891]
-anchors_preset = 10
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -250.0
