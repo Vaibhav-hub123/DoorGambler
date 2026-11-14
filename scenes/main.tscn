@@ -18,8 +18,9 @@ size = Vector2(20, 20)
 
 [sub_resource type="StandardMaterial3D" id="Material_station_floor"]
 albedo_texture = ExtResource("3_floor_texture")
-roughness = 0.9
+uv1_scale = Vector3(19.39, 19.39, 19.39)
 uv1_offset = Vector3(0, 0.2, 0)
+point_size = 55.4
 
 [sub_resource type="BoxMesh" id="BoxMesh_station_back"]
 size = Vector3(40, 4, 0.2)
@@ -53,6 +54,7 @@ shadow_enabled = true
 environment = SubResource("Environment_main")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=551268047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02408123, 9.536743e-07, 10.166019)
 mesh = SubResource("PlaneMesh_floor")
 surface_material_override/0 = SubResource("Material_station_floor")
 
@@ -111,7 +113,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 4)
 transform = Transform3D(-1, 0, -3.2584137e-07, 0, 1, 0, 3.2584137e-07, 0, -1, 0, 1.6, -1.5)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1701224464]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0029756, 2.322025)
+transform = Transform3D(1, -6.1405866e-05, -0.0002548802, 7.234457e-05, 0.999069, 0.043141335, 0.00025199377, -0.04314135, 0.999069, 0, 0.9888834, 1.774606)
 current = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1234567890]
