@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://csuu0xqwrrtbb" path="res://main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://cbggxfvol8bej" path="res://assets/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture.fbx" id="2_right_door_model"]
+[ext_resource type="Texture2D" uid="uid://bsulig1q7tub6" path="res://assets/metro_station_floor.png" id="3_floor_texture"]
+[ext_resource type="Texture2D" path="res://assets/metro_car_floor.png" id="4_car_floor_texture"]
 
 [sub_resource type="Environment" id="Environment_main"]
 background_mode = 1
@@ -12,6 +14,19 @@ ambient_light_energy = 0.6
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
 size = Vector2(20, 20)
+
+[sub_resource type="StandardMaterial3D" id="Material_station_floor"]
+albedo_texture = ExtResource("3_floor_texture")
+roughness = 0.9
+uv1_offset = Vector3(0, 0.2, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_car_floor"]
+size = Vector2(10, 3)
+
+[sub_resource type="StandardMaterial3D" id="Material_car_floor"]
+albedo_texture = ExtResource("4_car_floor_texture")
+uv1_scale = Vector3(2, 3, 1)
+roughness = 0.95
 
 [sub_resource type="BoxMesh" id="BoxMesh_station_back"]
 size = Vector3(40, 4, 0.2)
@@ -38,6 +53,7 @@ environment = SubResource("Environment_main")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=551268047]
 mesh = SubResource("PlaneMesh_floor")
+surface_material_override/0 = SubResource("Material_station_floor")
 
 [node name="Station" type="Node3D" parent="." unique_id=1834217221]
 
@@ -46,6 +62,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6639304, 12.150731)
 mesh = SubResource("BoxMesh_station_back")
 
 [node name="Train" type="Node3D" parent="." unique_id=1729372123]
+
+[node name="FloorInterior" type="MeshInstance3D" parent="Train"]
+position = Vector3(0, 0.015, -1.5)
+mesh = SubResource("PlaneMesh_car_floor")
+surface_material_override/0 = SubResource("Material_car_floor")
 
 [node name="WallLeft" type="MeshInstance3D" parent="Train" unique_id=1632452237]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.5, 0)
@@ -89,7 +110,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 4)
 transform = Transform3D(-1, 0, -3.2584137e-07, 0, 1, 0, 3.2584137e-07, 0, -1, 0, 1.6, -1.5)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1701224464]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 3.1609979)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0029756, 2.322025)
 current = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1234567890]
