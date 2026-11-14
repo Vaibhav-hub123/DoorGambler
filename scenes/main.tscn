@@ -17,7 +17,7 @@ ambient_light_color = Color(0.78, 0.84, 1, 1)
 ambient_light_energy = 0.6
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
-size = Vector2(5.116, 1.517)
+size = Vector2(20, 20)
 
 [sub_resource type="StandardMaterial3D" id="Material_station_floor"]
 albedo_texture = ExtResource("3_floor_texture")
@@ -75,6 +75,20 @@ size = Vector3(2, 1, 0.2)
 [sub_resource type="BoxMesh" id="BoxMesh_back"]
 size = Vector3(10, 3, 0.2)
 
+[sub_resource type="BoxMesh" id="BoxMesh_cabin_side"]
+size = Vector3(0.2, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cabin_ceiling"]
+size = Vector3(10, 0.12, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cabin_window"]
+size = Vector3(0.025, 1.05, 1.8)
+
+[sub_resource type="StandardMaterial3D" id="Material_cabin_window"]
+albedo_color = Color(0.08, 0.16, 0.21, 1)
+metallic = 0.25
+roughness = 0.22
+
 [sub_resource type="BoxMesh" id="BoxMesh_cabin_light"]
 size = Vector3(0.08, 0.04, 2.2)
 
@@ -96,7 +110,7 @@ environment = SubResource("Environment_main")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.8983212)
 
 [node name="Floor" type="MeshInstance3D" parent="Station" unique_id=551268047]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02408123, -0.009000778, 0.87152886)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02408123, -0.009000778, 14.064341)
 mesh = SubResource("PlaneMesh_floor")
 surface_material_override/0 = SubResource("Material_station_floor")
 
@@ -202,6 +216,31 @@ surface_material_override/0 = SubResource("Material_cabin_wall")
 [node name="WallBack" type="MeshInstance3D" parent="Train" unique_id=1669543443]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
 mesh = SubResource("BoxMesh_back")
+surface_material_override/0 = SubResource("Material_cabin_wall")
+
+[node name="CabinSideLeft" type="MeshInstance3D" parent="Train"]
+position = Vector3(-4.9, 1.5, -1.5)
+mesh = SubResource("BoxMesh_cabin_side")
+surface_material_override/0 = SubResource("Material_cabin_wall")
+
+[node name="CabinSideRight" type="MeshInstance3D" parent="Train"]
+position = Vector3(4.9, 1.5, -1.5)
+mesh = SubResource("BoxMesh_cabin_side")
+surface_material_override/0 = SubResource("Material_cabin_wall")
+
+[node name="CabinWindowLeft" type="MeshInstance3D" parent="Train"]
+position = Vector3(-4.785, 2.1, -1.5)
+mesh = SubResource("BoxMesh_cabin_window")
+surface_material_override/0 = SubResource("Material_cabin_window")
+
+[node name="CabinWindowRight" type="MeshInstance3D" parent="Train"]
+position = Vector3(4.785, 2.1, -1.5)
+mesh = SubResource("BoxMesh_cabin_window")
+surface_material_override/0 = SubResource("Material_cabin_window")
+
+[node name="CabinCeiling" type="MeshInstance3D" parent="Train"]
+position = Vector3(0, 2.94, -1.5)
+mesh = SubResource("BoxMesh_cabin_ceiling")
 surface_material_override/0 = SubResource("Material_cabin_wall")
 
 [node name="InteriorLight" type="OmniLight3D" parent="Train" unique_id=2114800329]
