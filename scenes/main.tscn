@@ -12,6 +12,9 @@ ambient_light_energy = 0.6
 [sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
 size = Vector2(20, 20)
 
+[sub_resource type="BoxMesh" id="BoxMesh_station_back"]
+size = Vector3(40, 4, 0.2)
+
 [sub_resource type="BoxMesh" id="BoxMesh_wall"]
 size = Vector3(4, 3, 0.2)
 
@@ -23,12 +26,6 @@ size = Vector3(10, 3, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_door"]
 size = Vector3(1, 2, 0.415)
-
-[sub_resource type="BoxMesh" id="BoxMesh_station_pillar"]
-size = Vector3(0.4, 3, 0.4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_station_back"]
-size = Vector3(40, 4, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="Material_glass_door"]
 transparency = 1
@@ -50,24 +47,8 @@ mesh = SubResource("PlaneMesh_floor")
 
 [node name="Station" type="Node3D" parent="." unique_id=1834217221]
 
-[node name="PillarLeftOuter" type="MeshInstance3D" parent="Station"]
-position = Vector3(-6, 1.5, 5)
-mesh = SubResource("BoxMesh_station_pillar")
-
-[node name="PillarLeftInner" type="MeshInstance3D" parent="Station"]
-position = Vector3(-2, 1.5, 5)
-mesh = SubResource("BoxMesh_station_pillar")
-
-[node name="PillarRightInner" type="MeshInstance3D" parent="Station"]
-position = Vector3(2, 1.5, 5)
-mesh = SubResource("BoxMesh_station_pillar")
-
-[node name="PillarRightOuter" type="MeshInstance3D" parent="Station"]
-position = Vector3(6, 1.5, 5)
-mesh = SubResource("BoxMesh_station_pillar")
-
-[node name="BackWall" type="MeshInstance3D" parent="Station"]
-position = Vector3(0, 2, 9)
+[node name="BackWall" type="MeshInstance3D" parent="Station" unique_id=35299949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6639304, 12.150731)
 mesh = SubResource("BoxMesh_station_back")
 
 [node name="Train" type="Node3D" parent="." unique_id=1729372123]
@@ -88,12 +69,12 @@ mesh = SubResource("BoxMesh_top")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
 mesh = SubResource("BoxMesh_back")
 
-[node name="InteriorLight" type="OmniLight3D" parent="Train"]
-position = Vector3(0, 2.4, -1.4)
+[node name="InteriorLight" type="OmniLight3D" parent="Train" unique_id=2114800329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -1.0518754)
 light_color = Color(1, 0.83, 0.62, 1)
 light_energy = 2.0
-omni_range = 8.0
 shadow_enabled = true
+omni_range = 8.0
 
 [node name="DoorLeft" type="MeshInstance3D" parent="Train" unique_id=1389175952]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.031838473)
@@ -112,7 +93,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 4)
 transform = Transform3D(-1, 0, -3.2584137e-07, 0, 1, 0, 3.2584137e-07, 0, -1, 0, 1.6, -1.5)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1701224464]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 3.1609979)
 current = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1234567890]
@@ -127,5 +108,22 @@ offset_right = 250.0
 offset_bottom = 72.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RoundLabel" type="Label" parent="CanvasLayer" unique_id=1234567892]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -50.0
+offset_right = 300.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
 horizontal_alignment = 1
 vertical_alignment = 1
