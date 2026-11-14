@@ -56,12 +56,11 @@ enum Phase { PLAYING, LEAVING, DEPARTING, RIDING, ARRIVING, GLITCHING, THINKING,
 @export_group("Fault (round 2)")
 @export var fault_cycles_min := 5         # open+close cycles, picked once per run
 @export var fault_cycles_max := 10
-@export var fault_start_delay := 1.0
-@export var fault_move_time := 0.35       # fast doors
-@export var fault_open_min := 0.7
-@export var fault_open_max := 1.5
-@export var fault_closed_min := 0.4
+@export var fault_start_delay := 1.0      # extra pause before the first cycle
+@export var fault_closed_min := 0.4       # doors stay shut for a random time in this range
 @export var fault_closed_max := 1.2
+@export var fault_open_min := 0.7         # ...and stay open for a random time in this range
+@export var fault_open_max := 1.5
 
 @onready var camera: Camera3D = $Camera3D
 @onready var train: Node3D = $Train
@@ -88,6 +87,7 @@ var shake_strength: float = 0.0
 var fault_cycles_left: int = 0
 var fault_over: bool = false              # the last cycle is done; waiting for the player to land
 var walk_tween: Tween
+var fault_tween: Tween
 var banner_tween: Tween
 var tunnel: Node3D
 var tunnel_lights: Array[MeshInstance3D] = []
@@ -123,14 +123,13 @@ func _process(delta: float) -> void:
 			run_door_cycle(delta)
 			check_doorway_crush()
 		Phase.FAULT:
-			if not fault_over:
-				run_door_cycle(delta)
-			check_doorway_crush()
+			check_doorway_crush()   # the fault doors run on their own tween
 		Phase.RIDING:
 			scroll_tunnel(delta)
 
 
 # ---------------------------------------------------------------- doors
+# The normal door cycle: closed, opening, open, closing, repeat.
 
 func run_door_cycle(delta: float) -> void:
 	door_timer -= delta
@@ -142,43 +141,27 @@ func advance_doors() -> void:
 	match door_state:
 		Door.CLOSED:
 			door_state = Door.OPENING
-			door_timer = move_time()
-			slide_doors(true, move_time())
+			door_timer = door_move_time
+			slide_doors(true)
 		Door.OPENING:
 			door_state = Door.OPEN
 			door_timer = open_hold()
 		Door.OPEN:
 			door_state = Door.CLOSING
-			door_timer = move_time()
-			slide_doors(false, move_time())
+			door_timer = door_move_time
+			slide_doors(false)
 		Door.CLOSING:
 			door_state = Door.CLOSED
-			door_timer = closed_hold()
+			door_timer = closed_time
+			# Doors just shut after the player boarded: the train leaves.
 			if phase == Phase.LEAVING:
-				# Doors just shut after the player boarded: the train leaves.
 				begin_departure()
-			elif phase == Phase.FAULT:
-				_on_fault_cycle_done()
-
-
-# The same door machine runs every phase. Only the timings change.
-
-func move_time() -> float:
-	return fault_move_time if phase == Phase.FAULT else door_move_time
 
 
 func open_hold() -> float:
 	if phase == Phase.LEAVING:
 		return leave_close_delay   # the player is aboard: close up quickly
-	if phase == Phase.FAULT:
-		return randf_range(fault_open_min, fault_open_max)
 	return randf_range(open_time_min, open_time_max)
-
-
-func closed_hold() -> float:
-	if phase == Phase.FAULT:
-		return randf_range(fault_closed_min, fault_closed_max)
-	return closed_time
 
 
 func slide_doors(open: bool, duration: float = -1.0) -> void:
@@ -459,22 +442,51 @@ func _set_line(line: String) -> void:
 
 
 # ---------------------------------------------------------------- fault
-# Round 2, part 3: the doors open and close at random, 5 to 10 times. The
-# player can cross out and back in. After the last close the train leaves,
-# so the player must be aboard.
+# Round 2, part 3: the doors misbehave at random, 5 to 10 cycles. The player
+# can cross out and back in. After the last close the train leaves, so the
+# player must be aboard.
+#
+# Opening and closing motion stays consistent. Only the closed and open waits
+# vary, so the player cannot predict when the next movement will begin.
 
 func begin_fault() -> void:
 	phase = Phase.FAULT
 	fault_over = false
 	fault_cycles_left = randi_range(fault_cycles_min, fault_cycles_max)
 	door_state = Door.CLOSED
-	door_timer = fault_start_delay
 	update_label("Crossings: %d" % crossings)
+	_run_fault_cycle(fault_start_delay)
+
+
+func _run_fault_cycle(extra_wait: float = 0.0) -> void:
+	fault_tween = create_tween()
+	var t := fault_tween
+
+	# Shut for a random time.
+	t.tween_interval(extra_wait + randf_range(fault_closed_min, fault_closed_max))
+
+	# The doors always open fully at the normal, fixed movement speed.
+	_door_step(t, 1.0)
+	t.tween_interval(randf_range(fault_open_min, fault_open_max))
+
+	# Close fully at the same fixed movement speed.
+	_door_step(t, 0.0)
+	t.tween_callback(_on_fault_cycle_done)
+
+
+func _door_step(t: Tween, width: float) -> void:
+	# width: 0.0 = shut, 1.0 = fully open. Travel duration is always fixed.
+	t.tween_property(door_left, "position:x", lerpf(left_closed_x, left_open_x, width), door_move_time)
+	t.parallel().tween_property(door_right, "position:x", lerpf(right_closed_x, right_open_x, width), door_move_time)
 
 
 func _on_fault_cycle_done() -> void:
+	if failed:
+		return
 	fault_cycles_left -= 1
-	if fault_cycles_left <= 0:
+	if fault_cycles_left > 0:
+		_run_fault_cycle()
+	else:
 		fault_over = true
 		resolve_fault()
 
@@ -561,6 +573,9 @@ func fail(reason: String) -> void:
 	is_moving = false
 	if walk_tween and walk_tween.is_valid():
 		walk_tween.kill()
+	# Stop the fault doors too, or they would keep cycling behind the retry screen.
+	if fault_tween and fault_tween.is_valid():
+		fault_tween.kill()
 	update_label("%s  Crossings: %d" % [reason, crossings] + char(10) + "Click to retry")
 
 

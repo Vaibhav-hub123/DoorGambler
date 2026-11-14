@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cq521dy65wn1r"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://csuu0xqwrrtbb" path="res://main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://cbggxfvol8bej" path="res://assets/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture.fbx" id="2_right_door_model"]
 
 [sub_resource type="Environment" id="Environment_main"]
 background_mode = 1
@@ -23,13 +24,6 @@ size = Vector3(2, 1, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_back"]
 size = Vector3(10, 3, 0.2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_door"]
-size = Vector3(1, 2, 0.415)
-
-[sub_resource type="StandardMaterial3D" id="Material_glass_door"]
-transparency = 1
-albedo_color = Color(0.65, 0.82, 1, 0.3)
 
 [node name="Main" type="Node3D" unique_id=1411005492]
 script = ExtResource("1_o5qli")
@@ -78,13 +72,15 @@ omni_range = 8.0
 
 [node name="DoorLeft" type="MeshInstance3D" parent="Train" unique_id=1389175952]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.031838473)
-mesh = SubResource("BoxMesh_door")
-surface_material_override/0 = SubResource("Material_glass_door")
+
+[node name="ImportedDoorModel2" parent="Train/DoorLeft" unique_id=1808896327 instance=ExtResource("2_right_door_model")]
+transform = Transform3D(2.6789055, 0, 0, 0, 2.1003408, 0, 0, 0, 1, 0.029589653, 0, 0.028161526)
 
 [node name="DoorRight" type="MeshInstance3D" parent="Train" unique_id=1807624690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0.06)
-mesh = SubResource("BoxMesh_door")
-surface_material_override/0 = SubResource("Material_glass_door")
+
+[node name="ImportedDoorModel" parent="Train/DoorRight" unique_id=1854924912 instance=ExtResource("2_right_door_model")]
+transform = Transform3D(2.6789055, 0, 0, 0, 2.1003408, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="PlatformSpot" type="Marker3D" parent="." unique_id=165085940]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 4)
