@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xbc7euvkqd8w"
-path.s3tc="res://.godot/imported/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_0.png-dc21bd2e61d34c66609043d5886d63f2.s3tc.ctex"
+uid="uid://c1qs5ya0oqfvs"
+path.s3tc="res://.godot/imported/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri_0.png-6383d9299c5540a3d060a2247e11a2f2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "3d881d49273b4cb0516cff71cad52642"
+"md5": "5b4275fdd5adf4e8b50571b2c5d1c136"
 }
 
 [deps]
 
-source_file="res://assets/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_0.png"
-dest_files=["res://.godot/imported/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_0.png-dc21bd2e61d34c66609043d5886d63f2.s3tc.ctex"]
+source_file="res://assets/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri_fbx/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri_0.png"
+dest_files=["res://.godot/imported/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri_0.png-6383d9299c5540a3d060a2247e11a2f2.s3tc.ctex"]
 
 [params]
 

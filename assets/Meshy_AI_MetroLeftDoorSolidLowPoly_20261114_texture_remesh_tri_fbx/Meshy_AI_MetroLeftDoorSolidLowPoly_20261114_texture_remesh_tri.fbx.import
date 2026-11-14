@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cbggxfvol8bej"
-path="res://.godot/imported/Meshy_AI_MetroRightDoorLowPoly_20261114_texture.fbx-f08d28302d9f285eb6d40d521b90e389.scn"
+uid="uid://bi5igl28o6vb7"
+path="res://.godot/imported/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri.fbx-867ef248502790a0df02cda35ef7fc4f.scn"
 
 [deps]
 
-source_file="res://assets/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture.fbx"
-dest_files=["res://.godot/imported/Meshy_AI_MetroRightDoorLowPoly_20261114_texture.fbx-f08d28302d9f285eb6d40d521b90e389.scn"]
+source_file="res://assets/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri_fbx/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri.fbx"
+dest_files=["res://.godot/imported/Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri.fbx-867ef248502790a0df02cda35ef7fc4f.scn"]
 
 [params]
 

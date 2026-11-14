@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://cq521dy65wn1r"]
 
-[ext_resource type="Script" uid="uid://csuu0xqwrrtbb" path="res://main.gd" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://cbggxfvol8bej" path="res://assets/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture_fbx/Meshy_AI_MetroRightDoorLowPoly_20261114_texture.fbx" id="2_right_door_model"]
+[ext_resource type="Script" path="res://main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://bsulig1q7tub6" path="res://assets/metro_station_floor.png" id="3_floor_texture"]
-[ext_resource type="Texture2D" path="res://assets/metro_car_floor.png" id="4_car_floor_texture"]
+[ext_resource type="Texture2D" uid="uid://bwepvg0ykinl5" path="res://assets/metro_car_floor.png" id="4_car_floor_texture"]
 
 [sub_resource type="Environment" id="Environment_main"]
 background_mode = 1
@@ -20,16 +19,16 @@ albedo_texture = ExtResource("3_floor_texture")
 roughness = 0.9
 uv1_offset = Vector3(0, 0.2, 0)
 
+[sub_resource type="BoxMesh" id="BoxMesh_station_back"]
+size = Vector3(40, 4, 0.2)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_car_floor"]
 size = Vector2(10, 3)
 
 [sub_resource type="StandardMaterial3D" id="Material_car_floor"]
 albedo_texture = ExtResource("4_car_floor_texture")
-uv1_scale = Vector3(2, 3, 1)
 roughness = 0.95
-
-[sub_resource type="BoxMesh" id="BoxMesh_station_back"]
-size = Vector3(40, 4, 0.2)
+uv1_scale = Vector3(2, 3, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wall"]
 size = Vector3(4, 3, 0.2)
@@ -63,8 +62,8 @@ mesh = SubResource("BoxMesh_station_back")
 
 [node name="Train" type="Node3D" parent="." unique_id=1729372123]
 
-[node name="FloorInterior" type="MeshInstance3D" parent="Train"]
-position = Vector3(0, 0.015, -1.5)
+[node name="FloorInterior" type="MeshInstance3D" parent="Train" unique_id=1645369211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, -1.5)
 mesh = SubResource("PlaneMesh_car_floor")
 surface_material_override/0 = SubResource("Material_car_floor")
 
@@ -94,14 +93,8 @@ omni_range = 8.0
 [node name="DoorLeft" type="MeshInstance3D" parent="Train" unique_id=1389175952]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.031838473)
 
-[node name="ImportedDoorModel2" parent="Train/DoorLeft" unique_id=1808896327 instance=ExtResource("2_right_door_model")]
-transform = Transform3D(2.6789055, 0, 0, 0, 2.1003408, 0, 0, 0, 1, 0.029589653, 0, 0.028161526)
-
 [node name="DoorRight" type="MeshInstance3D" parent="Train" unique_id=1807624690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0.06)
-
-[node name="ImportedDoorModel" parent="Train/DoorRight" unique_id=1854924912 instance=ExtResource("2_right_door_model")]
-transform = Transform3D(2.6789055, 0, 0, 0, 2.1003408, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="PlatformSpot" type="Marker3D" parent="." unique_id=165085940]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 4)
