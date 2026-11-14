@@ -17,12 +17,14 @@ ambient_light_color = Color(0.78, 0.84, 1, 1)
 ambient_light_energy = 0.6
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
-size = Vector2(20, 20)
+size = Vector2(5.116, 1.517)
 
 [sub_resource type="StandardMaterial3D" id="Material_station_floor"]
 albedo_texture = ExtResource("3_floor_texture")
 roughness = 0.9
 uv1_scale = Vector3(8, 8, 1)
+uv1_offset = Vector3(0.78, 0.36, 0)
+point_size = 55.4
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tactile_strip"]
 size = Vector2(20, 0.5)
@@ -94,7 +96,7 @@ environment = SubResource("Environment_main")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.8983212)
 
 [node name="Floor" type="MeshInstance3D" parent="Station" unique_id=551268047]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02408123, 0, 14.064341)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02408123, -0.009000778, 0.87152886)
 mesh = SubResource("PlaneMesh_floor")
 surface_material_override/0 = SubResource("Material_station_floor")
 
