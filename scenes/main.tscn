@@ -27,12 +27,12 @@ uv1_offset = Vector3(0.78, 0.36, 0)
 point_size = 55.4
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tactile_strip"]
-size = Vector2(20, 0.5)
+size = Vector2(1.68, 0.12)
 
 [sub_resource type="StandardMaterial3D" id="Material_tactile_strip"]
 albedo_texture = ExtResource("7_tactile_texture")
 roughness = 0.85
-uv1_scale = Vector3(8, 1, 1)
+uv1_scale = Vector3(2.045, -0.17, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_station_back"]
 size = Vector3(40, 4, 0.2)
@@ -78,9 +78,6 @@ size = Vector3(10, 3, 0.2)
 [sub_resource type="BoxMesh" id="BoxMesh_cabin_side"]
 size = Vector3(0.2, 3, 3)
 
-[sub_resource type="BoxMesh" id="BoxMesh_cabin_ceiling"]
-size = Vector3(10, 0.12, 3)
-
 [sub_resource type="BoxMesh" id="BoxMesh_cabin_window"]
 size = Vector3(0.025, 1.05, 1.8)
 
@@ -88,6 +85,9 @@ size = Vector3(0.025, 1.05, 1.8)
 albedo_color = Color(0.08, 0.16, 0.21, 1)
 metallic = 0.25
 roughness = 0.22
+
+[sub_resource type="BoxMesh" id="BoxMesh_cabin_ceiling"]
+size = Vector3(10, 0.12, 3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cabin_light"]
 size = Vector3(0.08, 0.04, 2.2)
@@ -115,7 +115,27 @@ mesh = SubResource("PlaneMesh_floor")
 surface_material_override/0 = SubResource("Material_station_floor")
 
 [node name="PlatformSafetyStrip" type="MeshInstance3D" parent="Station" unique_id=987707747]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02408123, 0.012, 4.779595)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02408123, 0.012, 4.383295)
+mesh = SubResource("PlaneMesh_tactile_strip")
+surface_material_override/0 = SubResource("Material_tactile_strip")
+
+[node name="PlatformSafetyStrip4" type="MeshInstance3D" parent="Station" unique_id=53602492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6561921, 0.012, 4.383295)
+mesh = SubResource("PlaneMesh_tactile_strip")
+surface_material_override/0 = SubResource("Material_tactile_strip")
+
+[node name="PlatformSafetyStrip5" type="MeshInstance3D" parent="Station" unique_id=473448042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3304272, 0.012, 4.383295)
+mesh = SubResource("PlaneMesh_tactile_strip")
+surface_material_override/0 = SubResource("Material_tactile_strip")
+
+[node name="PlatformSafetyStrip2" type="MeshInstance3D" parent="Station" unique_id=183549272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7004219, 0.012, 4.383295)
+mesh = SubResource("PlaneMesh_tactile_strip")
+surface_material_override/0 = SubResource("Material_tactile_strip")
+
+[node name="PlatformSafetyStrip3" type="MeshInstance3D" parent="Station" unique_id=2088965514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.376693, 0.012, 4.383295)
 mesh = SubResource("PlaneMesh_tactile_strip")
 surface_material_override/0 = SubResource("Material_tactile_strip")
 
@@ -200,46 +220,55 @@ surface_material_override/0 = SubResource("Material_car_floor")
 
 [node name="WallLeft" type="MeshInstance3D" parent="Train" unique_id=1632452237]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.5, 0)
+visible = false
 mesh = SubResource("BoxMesh_wall")
 surface_material_override/0 = SubResource("Material_cabin_wall")
 
 [node name="WallRight" type="MeshInstance3D" parent="Train" unique_id=358240239]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 0)
+visible = false
 mesh = SubResource("BoxMesh_wall")
 surface_material_override/0 = SubResource("Material_cabin_wall")
 
 [node name="WallTop" type="MeshInstance3D" parent="Train" unique_id=303587657]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+visible = false
 mesh = SubResource("BoxMesh_top")
 surface_material_override/0 = SubResource("Material_cabin_wall")
 
 [node name="WallBack" type="MeshInstance3D" parent="Train" unique_id=1669543443]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
+visible = false
 mesh = SubResource("BoxMesh_back")
 surface_material_override/0 = SubResource("Material_cabin_wall")
 
-[node name="CabinSideLeft" type="MeshInstance3D" parent="Train"]
-position = Vector3(-4.9, 1.5, -1.5)
+[node name="CabinSideLeft" type="MeshInstance3D" parent="Train" unique_id=1060065328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9, 1.5, -1.5)
+visible = false
 mesh = SubResource("BoxMesh_cabin_side")
 surface_material_override/0 = SubResource("Material_cabin_wall")
 
-[node name="CabinSideRight" type="MeshInstance3D" parent="Train"]
-position = Vector3(4.9, 1.5, -1.5)
+[node name="CabinSideRight" type="MeshInstance3D" parent="Train" unique_id=1733196742]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, 1.5, -1.5)
+visible = false
 mesh = SubResource("BoxMesh_cabin_side")
 surface_material_override/0 = SubResource("Material_cabin_wall")
 
-[node name="CabinWindowLeft" type="MeshInstance3D" parent="Train"]
-position = Vector3(-4.785, 2.1, -1.5)
+[node name="CabinWindowLeft" type="MeshInstance3D" parent="Train" unique_id=1133815088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.785, 2.1, -1.5)
+visible = false
 mesh = SubResource("BoxMesh_cabin_window")
 surface_material_override/0 = SubResource("Material_cabin_window")
 
-[node name="CabinWindowRight" type="MeshInstance3D" parent="Train"]
-position = Vector3(4.785, 2.1, -1.5)
+[node name="CabinWindowRight" type="MeshInstance3D" parent="Train" unique_id=748245695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.785, 2.1, -1.5)
+visible = false
 mesh = SubResource("BoxMesh_cabin_window")
 surface_material_override/0 = SubResource("Material_cabin_window")
 
-[node name="CabinCeiling" type="MeshInstance3D" parent="Train"]
-position = Vector3(0, 2.94, -1.5)
+[node name="CabinCeiling" type="MeshInstance3D" parent="Train" unique_id=770652075]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94, -1.5)
+visible = false
 mesh = SubResource("BoxMesh_cabin_ceiling")
 surface_material_override/0 = SubResource("Material_cabin_wall")
 
@@ -268,15 +297,27 @@ mesh = SubResource("BoxMesh_cabin_light")
 surface_material_override/0 = SubResource("Material_cabin_light")
 
 [node name="DoorLeft" type="MeshInstance3D" parent="Train" unique_id=1389175952]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.06)
+transform = Transform3D(0.69733244, 0, 0, 0, 0.7907443, 0, 0, 0, 1.135008, 1.7682095, 1, 0.06)
 
 [node name="Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri" parent="Train/DoorLeft" unique_id=202356035 instance=ExtResource("4_tbgi4")]
-transform = Transform3D(1.2155, 0, 0, 0, 1.05114, 0, 0, 0, 0.8410809, 0, 0, 0)
+transform = Transform3D(1.2155, 0, 0, 0, 1.05114, 0, 0, 0, 0.84108084, -0.031918764, 0, 0)
 
 [node name="DoorRight" type="MeshInstance3D" parent="Train" unique_id=1807624690]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.1419971, 0.5, 1, 0.06)
+transform = Transform3D(0.69733244, 0, 0, 0, 0.7907443, 0, 0, 0, 1.2961758, 2.4655416, 1, 0.06)
 
 [node name="Meshy_AI_MetroRightDoorLowPoly_20261114_texture" parent="Train/DoorRight" unique_id=448501326 instance=ExtResource("5_tefeu")]
+transform = Transform3D(2.5924, 0, 0, 0, 2.1670315, 0, 0, 0, 1.0604398, -0.042680502, -0.022972822, 0)
+
+[node name="DoorLeft2" type="MeshInstance3D" parent="Train" unique_id=342713464]
+transform = Transform3D(0.69733244, 0, 0, 0, 0.7907443, 0, 0, 0, 1.135008, -2.0844154, 1, 0.06)
+
+[node name="Meshy_AI_MetroLeftDoorSolidLowPoly_20261114_texture_remesh_tri" parent="Train/DoorLeft2" unique_id=1068550999 instance=ExtResource("4_tbgi4")]
+transform = Transform3D(1.2155, 0, 0, 0, 1.05114, 0, 0, 0, 0.8410809, 0, 0, 0)
+
+[node name="DoorRight2" type="MeshInstance3D" parent="Train" unique_id=1355381929]
+transform = Transform3D(0.69733244, 0, 0, 0, 0.7907443, 0, 0, 0, 1.2961758, -1.3870833, 1, 0.06)
+
+[node name="Meshy_AI_MetroRightDoorLowPoly_20261114_texture" parent="Train/DoorRight2" unique_id=1516781813 instance=ExtResource("5_tefeu")]
 transform = Transform3D(2.5924, 0, 0, 0, 2.1670318, 0, 0, 0, 1.06044, -0.010761738, -0.022972822, 0)
 
 [node name="PlatformSpot" type="Marker3D" parent="." unique_id=165085940]
@@ -286,7 +327,7 @@ transform = Transform3D(1, -6.1405866e-05, -0.0002548802, 7.234457e-05, 0.999069
 transform = Transform3D(-1, 2.6039512e-08, -3.2479923e-07, 0, 0.99680173, 0.07991469, 3.2584137e-07, 0.07991469, -0.99680173, 0, 1.15, -1.45)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1701224464]
-transform = Transform3D(1, -6.1405866e-05, -0.0002548802, 7.234457e-05, 0.999069, 0.043141335, 0.00025199377, -0.04314135, 0.999069, 0, 0.99357843, 2.4059045)
+transform = Transform3D(1, -6.140587e-05, -0.00025488023, 6.9410606e-05, 0.99950296, 0.03152561, 0.00025281767, -0.031525623, 0.99950296, 0, 0.99357843, 1.902441)
 current = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1234567890]
